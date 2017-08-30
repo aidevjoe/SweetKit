@@ -117,4 +117,10 @@ public extension FileManager {
             return NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
         }
     }
+    
+    public class var log: String {
+        get {
+            return document.appendingPathComponent("Logs")
+        }
+    }
 }

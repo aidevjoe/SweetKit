@@ -38,11 +38,11 @@ public struct SKLog {
             self.logged += _message
             
             let filenameWithoutExtension = filename.lastPathComponent.deletingPathExtension
-            let log = "\(filenameWithoutExtension):\(line) \(function): \(_message)"
             let timestamp = Date().description(dateSeparator: "-", usFormat: true, nanosecond: true)
-            print("\(timestamp) \(filenameWithoutExtension):\(line) \(function): \(_message)", terminator: "")
+            let logMessage = "\(timestamp) \(filenameWithoutExtension):\(line) \(function): \(_message)"
+            print(logMessage, terminator: "")
             
-            self.detailedLog += log
+            self.detailedLog += logMessage
         }
     }
     
@@ -79,8 +79,18 @@ public struct SKLog {
     /// - Parameters:
     ///   - path: Save path.
     ///   - filename: Log filename.
-    public static func saveLog(in path: String = FileManager.caches,
-                               filename: String = Date().description.appendingPathExtension(".log")!) {
-        _ = FileManager.save(content: detailedLog, savePath: path.appendingPathComponent(filename))
+    public static func saveLog(in path: String = FileManager.log,
+                               filename: String = Date().YYYYMMDDDateString.appendingPathExtension("log")!) {
+        if detailedLog.isEmpty { return }
+        let fullPath = path.appendingPathComponent(filename)
+        var logs = detailedLog
+        if FileManager.default.fileExists(atPath: fullPath) {
+            logs = try! String(contentsOfFile: fullPath, encoding: .utf8)
+            logs = logs + detailedLog
+            _ = FileManager.save(content: logs, savePath: path.appendingPathComponent(filename))
+            return
+        }
+        FileManager.create(at: fullPath)
+        _ = FileManager.save(content: logs, savePath: fullPath)
     }
 }

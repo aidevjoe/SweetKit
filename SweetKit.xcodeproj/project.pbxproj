@@ -187,11 +187,11 @@
 			children = (
 				BF303F6A1F566B42008E6A89 /* SKTouchID.swift */,
 				BF303F5E1F564E72008E6A89 /* SKSystemSound.swift */,
+				BF303F661F566335008E6A89 /* SKLog.swift */,
 				BFF95FF81F53DD18005BC83D /* GCDHelper.swift */,
 				BFF95FF91F53DD18005BC83D /* LocalNotificationHelper.swift */,
 				BFF95FFA1F53DD18005BC83D /* SwiftTimer.swift */,
 				BF303F601F5658ED008E6A89 /* SweetFunc.swift */,
-				BF303F661F566335008E6A89 /* SKLog.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
