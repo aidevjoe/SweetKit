@@ -27,3 +27,11 @@ public func release(_ block: () -> Void) {
         block()
     #endif
 }
+
+public var isDebug: Bool {
+    #if DEBUG
+        return true
+    #else
+        return false
+    #endif
+}

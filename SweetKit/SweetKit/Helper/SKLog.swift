@@ -6,34 +6,38 @@ public struct SKLog {
     // MARK: - Variables
     
     /// Activate or not SKLog.
-    public static var active: Bool = true
+    public static var active: Bool = isDebug
     
     /// The log string.
     public static var logged: String = ""
     /// The detailed log string.
     public static var detailedLog: String = ""
     
+    private enum LogType {
+        case warning, error, debug, info
+        
+        var level: String {
+            switch self {
+            case .error: return "❌ ERROR"
+            case .warning: return "⚠️ WARNING"
+            case .info: return "💙 INFO"
+            case .debug: return "💚 DEBUG"
+            }
+        }
+    }
+    
     // MARK: - Functions
     
-    /// Exenteds NSLog.
-    ///
-    /// Activate it by setting SKLogActive variable to true before using it.
-    ///
-    /// - Parameters:
-    ///   - message: Console message.
-    ///   - filename: File. Default is #file.
-    ///   - function: Function name. Default is #function.
-    ///   - line: Line number. Default is #line.
-    public static func log(_ message: String, filename: String = #file, function: StaticString = #function, line: Int = #line) {
+    private static func log(_ items: [Any], filename: String = #file, function: StaticString = #function, line: Int = #line, type: LogType) {
         if self.active {
-            var _message = message
+            var _message = type.level + " " + message(from: items)
             if _message.hasSuffix("\n") == false {
                 _message += "\n"
             }
             
             self.logged += _message
             
-            let filenameWithoutExtension = NSURL(string: String(describing: NSString(utf8String: filename)!))!.deletingPathExtension!.lastPathComponent
+            let filenameWithoutExtension = filename.lastPathComponent.deletingPathExtension
             let log = "\(filenameWithoutExtension):\(line) \(function): \(_message)"
             let timestamp = Date().description(dateSeparator: "-", usFormat: true, nanosecond: true)
             print("\(timestamp) \(filenameWithoutExtension):\(line) \(function): \(_message)", terminator: "")
@@ -42,56 +46,26 @@ public struct SKLog {
         }
     }
     
-    /// Exenteds NSLog with a warning sign.
-    ///
-    /// Activate it by setting SKLogActive variable to true before using it.
-    ///
-    /// - Parameters:
-    ///   - message: Console message.
-    ///   - filename: File. Default is #file.
-    ///   - function: Function name. Default is #function.
-    ///   - line: Line number. Default is #line.
-    public static func warning(_ message: String, filename: String = #file, function: StaticString = #function, line: Int = #line) {
-        self.log("⚠️ \(message)", filename: filename, function: function, line: line)
+    public static func warning(_ items: Any..., filename: String = #file, function: StaticString = #function, line: Int = #line) {
+        self.log(items, filename: filename, function: function, line: line, type: .warning)
     }
     
-    /// Exenteds NSLog with an error sign.
-    ///
-    /// Activate it by setting SKLogActive variable to true before using it.
-    ///
-    /// - Parameters:
-    ///   - message: Console message.
-    ///   - filename: File. Default is #file.
-    ///   - function: Function name. Default is #function.
-    ///   - line: Line number. Default is #line.
-    public static func error(_ message: String, filename: String = #file, function: StaticString = #function, line: Int = #line) {
-        self.log("❗️ \(message)", filename: filename, function: function, line: line)
+    public static func error(_ items: Any..., filename: String = #file, function: StaticString = #function, line: Int = #line) {
+        self.log(items, filename: filename, function: function, line: line, type: .error)
     }
     
-    /// Exenteds NSLog with a debug sign.
-    ///
-    /// Activate it by setting SKLogActive variable to true before using it.
-    ///
-    /// - Parameters:
-    ///   - message: Console message.
-    ///   - filename: File. Default is #file.
-    ///   - function: Function name. Default is #function.
-    ///   - line: Line number. Default is #line.
-    public static func debug(_ message: String, filename: String = #file, function: StaticString = #function, line: Int = #line) {
-        self.log("🔵 \(message)", filename: filename, function: function, line: line)
+    public static func debug(_ items: Any..., filename: String = #file, function: StaticString = #function, line: Int = #line) {
+        self.log(items, filename: filename, function: function, line: line, type: .debug)
     }
     
-    /// Exenteds NSLog with an info sign.
-    ///
-    /// Activate it by setting SKLogActive variable to true before using it.
-    ///
-    /// - Parameters:
-    ///   - message: Console message.
-    ///   - filename: File. Default is #file.
-    ///   - function: Function name. Default is #function.
-    ///   - line: Line number. Default is #line.
-    public static func info(_ message: String, filename: String = #file, function: StaticString = #function, line: Int = #line) {
-        self.log("ℹ️ \(message)", filename: filename, function: function, line: line)
+    public static func info(_ items: Any..., filename: String = #file, function: StaticString = #function, line: Int = #line) {
+        self.log(items, filename: filename, function: function, line: line, type: .info)
+    }
+    
+    private static func message(from items: [Any]) -> String {
+        return items
+            .map { String(describing: $0) }
+            .joined(separator: " ")
     }
     
     /// Clear the log string.
@@ -100,8 +74,6 @@ public struct SKLog {
         detailedLog = ""
     }
     
-    
-    #if !os(Linux) && !os(macOS)
     /// Save the Log in a file.
     ///
     /// - Parameters:
@@ -111,5 +83,4 @@ public struct SKLog {
                                filename: String = Date().description.appendingPathExtension(".log")!) {
         _ = FileManager.save(content: detailedLog, savePath: path.appendingPathComponent(filename))
     }
-    #endif
 }

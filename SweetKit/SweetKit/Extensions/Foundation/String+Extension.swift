@@ -34,6 +34,10 @@ public extension String {
         return self.data(using: .utf8)
     }
     
+    public func addToPasteboard() {
+        UIPasteboard.general.string = self
+    }
+    
     /// Base64 编码
     public var base64encoded: String {
         guard let data: Data = self.data(using: .utf8) else {
@@ -413,6 +417,12 @@ extension String {
         return toSize(size: size, fontSize: fontSize, maximumNumberOfLines: maximumNumberOfLines).width
     }
     
+    /// 字符串高度
+    public func toHeight(width: CGFloat, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGFloat {
+        let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        return toSize(size: size, fontSize: fontSize, maximumNumberOfLines: maximumNumberOfLines).height
+    }
+
     /// 计算字符串的高度，并限制宽度
     public func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
@@ -424,12 +434,17 @@ extension String {
         return boundingBox.height
     }
     
-    /// 字符串高度
-    public func toHeight(width: CGFloat, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGFloat {
-        let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        return toSize(size: size, fontSize: fontSize, maximumNumberOfLines: maximumNumberOfLines).height
+    /// 下划线
+    public func underline() -> NSAttributedString {
+        let underlineString = NSAttributedString(string: self, attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+        return underlineString
     }
     
+    // 斜体
+    public func italic() -> NSAttributedString {
+        let italicString = NSMutableAttributedString(string: self, attributes: [NSFontAttributeName: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)])
+        return italicString
+    }
     
     /// 设置指定文字颜色
     public func makeSubstringColor(_ text: String, color: UIColor) -> NSAttributedString {

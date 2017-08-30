@@ -1,6 +1,24 @@
 import UIKit
 import CoreGraphics
 
+extension URL {
+    /// 将 query 转换为字典
+    public var queryParameters: [String: String]? {
+        guard let components = URLComponents(url: self, resolvingAgainstBaseURL: true),
+            let queryItems = components.queryItems else {
+            return nil
+        }
+        
+        var parameters = [String: String]()
+        for item in queryItems {
+            parameters[item.name] = item.value
+        }
+        
+        return parameters
+    }
+}
+
+
 
 // MARK: - CGRect
 public extension CGRect {
@@ -169,6 +187,19 @@ public extension UIApplication {
     
     public class func appBundleName() -> String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
+    }
+    
+    public func runInBackground(_ closure: @escaping () -> Void, expirationHandler: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            let taskID: UIBackgroundTaskIdentifier
+            if let expirationHandler = expirationHandler {
+                taskID = self.beginBackgroundTask(expirationHandler: expirationHandler)
+            } else {
+                taskID = self.beginBackgroundTask(expirationHandler: { })
+            }
+            closure()
+            self.endBackgroundTask(taskID)
+        }
     }
 }
 

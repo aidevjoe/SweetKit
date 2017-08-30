@@ -2,6 +2,26 @@ import UIKit
 
 public extension UIViewController {
 
+    public var tabBarHeight: CGFloat {
+        if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {
+            return visibleViewController.tabBarHeight
+        }
+        if let tab = self.tabBarController {
+            return tab.tabBar.frame.size.height
+        }
+        return 0
+    }
+    
+    public var navigationBarHeight: CGFloat {
+        if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {
+            return visibleViewController.navigationBarHeight
+        }
+        if let nav = self.navigationController {
+            return nav.navigationBar.height
+        }
+        return 0
+    }
+    
     public var isModal: Bool {
         if self.presentingViewController != nil {
             return true
