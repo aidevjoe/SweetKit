@@ -1,8 +1,8 @@
 import UIKit
 
-extension UIViewController {
+public extension UIViewController {
 
-    var isModal: Bool {
+    public var isModal: Bool {
         if self.presentingViewController != nil {
             return true
         } else if self.navigationController?.presentingViewController?.presentedViewController == self.navigationController  {
@@ -14,7 +14,7 @@ extension UIViewController {
     }
     
     /// 查找指定类型的子控制器
-    func findChildViewControllerOfType(_ klass: AnyClass) -> UIViewController? {
+    public func findChildViewControllerOfType(_ klass: AnyClass) -> UIViewController? {
         for child in childViewControllers {
             if child.isKind(of: klass) {
                 return child
@@ -24,12 +24,12 @@ extension UIViewController {
     }
     
     // Touch View Hidden Keyboard
-    func hideKeyboardWhenTappedAround() {
+    public func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     
-    func dismissKeyboard() {
+    public func dismissKeyboard() {
         view.endEditing(true)
     }
     

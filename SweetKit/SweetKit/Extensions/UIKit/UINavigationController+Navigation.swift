@@ -1,6 +1,6 @@
 import UIKit
 
-extension UINavigationController {
+public extension UINavigationController {
     
     public override func push(controller: UIViewController, animated: Bool = true) {
         pushViewController(controller, animated: animated)

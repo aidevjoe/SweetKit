@@ -1,8 +1,11 @@
 import UIKit
+import CoreGraphics
+import CoreImage
+import Accelerate
 
-extension UIImage {
+public extension UIImage {
     
-    func roundWithCornerRadius(_ cornerRadius: CGFloat) -> UIImage {
+    public func roundWithCornerRadius(_ cornerRadius: CGFloat) -> UIImage {
         let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: self.size)
         UIGraphicsBeginImageContextWithOptions(self.size, false, 1)
         UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius).addClip()
@@ -41,7 +44,7 @@ extension UIImage {
     }
     
     // More information here: http://nshipster.com/image-resizing/
-    func resizeImage(newWidth: CGFloat) -> UIImage {
+    public func resizeImage(newWidth: CGFloat) -> UIImage {
         
         let scale = newWidth / self.size.width
         let newHeight = self.size.height * scale
@@ -63,7 +66,7 @@ extension UIImage {
     }
     
     /// 根据颜色生成一张图片
-    static func withColor(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+    public static func withColor(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
@@ -74,7 +77,7 @@ extension UIImage {
     }
     
     /// 获取指定View图片
-    class func imageWithView(_ view: UIView) -> UIImage {
+    public class func imageWithView(_ view: UIView) -> UIImage {
         UIGraphicsBeginImageContext(view.bounds.size)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -82,7 +85,7 @@ extension UIImage {
         return image!
     }
     
-    func imageClipOvalImage() -> UIImage {
+    public func imageClipOvalImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         let ctx = UIGraphicsGetCurrentContext()
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -121,8 +124,17 @@ extension UIImage {
         return size.width / size.height
     }
     
-    var base64: String {
+    public var base64: String {
         return UIImageJPEGRepresentation(self, 1.0)!.base64EncodedString()
+    }
+    
+    
+    /// 从base64字符串创建一个图像。
+    public convenience init?(base64: String) {
+        guard let data = Data(base64Encoded: base64, options: .ignoreUnknownCharacters) else {
+            return nil
+        }
+        self.init(data: data)
     }
     
     /**
@@ -257,6 +269,116 @@ extension UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         let insetRect = rect.insetBy(dx: left, dy: top)
         return crop(insetRect)
+    }
+
+    /// 将模糊效果应用于图像
+    ///
+    /// - Parameters:
+    ///   - blurRadius: Blur radius.
+    ///   - saturation: Saturation delta factor, leave it default (1.8) if you don't what is.
+    ///   - tintColor: Blur tint color, default is nil.
+    ///   - maskImage: Apply a mask image, leave it default (nil) if you don't want to mask.
+    /// - Returns: Return the transformed image.
+    public func blur(radius blurRadius: CGFloat, saturation: CGFloat = 1.8, tintColor: UIColor? = nil, maskImage: UIImage? = nil) -> UIImage {
+        guard size.width > 1 && size.height > 1, let selfCGImage = cgImage else {
+            return self
+        }
+        
+        let imageRect = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
+        var effectImage = self
+        
+        let hasBlur = Float(blurRadius) > Float.ulpOfOne
+        let hasSaturationChange = Float(abs(saturation - 1)) > Float.ulpOfOne
+        
+        if hasBlur || hasSaturationChange {
+            UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+            guard let effectInContext = UIGraphicsGetCurrentContext() else {
+                UIGraphicsEndImageContext()
+                return self
+            }
+            effectInContext.scaleBy(x: 1, y: -1)
+            effectInContext.translateBy(x: 0, y: -size.height)
+            effectInContext.draw(selfCGImage, in: imageRect)
+            var effectInBuffer = vImage_Buffer(data: effectInContext.data, height: UInt(effectInContext.height), width: UInt(effectInContext.width), rowBytes: effectInContext.bytesPerRow)
+            
+            UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+            guard let effectOutContext = UIGraphicsGetCurrentContext() else {
+                UIGraphicsEndImageContext()
+                return self
+            }
+            var effectOutBuffer = vImage_Buffer(data: effectOutContext.data, height: UInt(effectOutContext.height), width: UInt(effectOutContext.width), rowBytes: effectOutContext.bytesPerRow)
+            
+            if hasBlur {
+                let inputRadius = blurRadius * UIScreen.main.scale
+                var radius = UInt32(floor(inputRadius * 3.0 * CGFloat(sqrt(2 * Double.pi)) / 4 + 0.5))
+                if radius % 2 != 1 {
+                    radius += 1
+                }
+                
+                let imageEdgeExtendFlags = vImage_Flags(kvImageEdgeExtend)
+                vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
+                vImageBoxConvolve_ARGB8888(&effectOutBuffer, &effectInBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
+                vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
+            }
+            
+            if hasSaturationChange {
+                let s = saturation
+                let floatingPointSaturationMatrix = [
+                    0.0722 + 0.9278 * s, 0.0722 - 0.0722 * s, 0.0722 - 0.0722 * s, 0,
+                    0.7152 - 0.7152 * s, 0.7152 + 0.2848 * s, 0.7152 - 0.7152 * s, 0,
+                    0.2126 - 0.2126 * s, 0.2126 - 0.2126 * s, 0.2126 + 0.7873 * s, 0,
+                    0, 0, 0, 1
+                ]
+                
+                let divisor: CGFloat = 256
+                let saturationMatrix = floatingPointSaturationMatrix.map {
+                    return Int16(round($0 * divisor))
+                }
+                
+                if hasBlur {
+                    vImageMatrixMultiply_ARGB8888(&effectOutBuffer, &effectInBuffer, saturationMatrix, Int32(divisor), nil, nil, vImage_Flags(kvImageNoFlags))
+                } else {
+                    vImageMatrixMultiply_ARGB8888(&effectInBuffer, &effectOutBuffer, saturationMatrix, Int32(divisor), nil, nil, vImage_Flags(kvImageNoFlags))
+                }
+            }
+            
+            effectImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        guard let outputContext = UIGraphicsGetCurrentContext() else {
+            UIGraphicsEndImageContext()
+            return self
+        }
+        outputContext.scaleBy(x: 1, y: -1)
+        outputContext.translateBy(x: 0, y: -size.height)
+        
+        outputContext.draw(selfCGImage, in: imageRect)
+        
+        if hasBlur {
+            outputContext.saveGState()
+            if let maskImage = maskImage {
+                outputContext.clip(to: imageRect, mask: maskImage.cgImage!)
+            }
+            outputContext.draw(effectImage.cgImage!, in: imageRect)
+            outputContext.restoreGState()
+        }
+        
+        if let tintColor = tintColor {
+            outputContext.saveGState()
+            outputContext.setFillColor(tintColor.cgColor)
+            outputContext.fill(imageRect)
+            outputContext.restoreGState()
+        }
+        
+        guard let outputImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            UIGraphicsEndImageContext()
+            return self
+        }
+        UIGraphicsEndImageContext()
+        
+        return outputImage
     }
 
 }

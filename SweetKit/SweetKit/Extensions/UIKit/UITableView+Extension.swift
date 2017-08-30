@@ -1,20 +1,20 @@
 import UIKit
 
-extension UITableView {
+public extension UITableView {
     
     
-    func estimatedRowHeight(_ height: CGFloat) {
+    public func estimatedRowHeight(_ height: CGFloat) {
         self.rowHeight = UITableViewAutomaticDimension
         self.estimatedRowHeight = height
     }
     
     /// 隐藏 section style模式下顶部的空隙
-    func hideHeaderViewSpace(_ margin: CGFloat = 0.1) {
+    public func hideHeaderViewSpace(_ margin: CGFloat = 0.1) {
         self.tableHeaderView = UIView(frame: CGRect(height: margin))
     }
     
     /// 隐藏空的Cell
-    func hideEmptyCells() {
+    public func hideEmptyCells() {
         self.tableFooterView = UIView(frame: .zero)
     }
     
@@ -90,11 +90,41 @@ extension UITableView {
         
         return indexPaths
     }
+    
+    /// Retrive the next index path for the given row at section.
+    ///
+    /// - Parameters:
+    ///   - row: Row of the index path.
+    ///   - section: Section of the index path
+    /// - Returns: Returns the next index path.
+    public func nextIndexPath(row: Int, forSection section: Int) -> IndexPath? {
+        let indexPath: [IndexPath] = self.indexPaths(section: section)
+        guard indexPath != [] else {
+            return nil
+        }
+        
+        return indexPath[row + 1]
+    }
+    
+    /// Retrive the previous index path for the given row at section
+    ///
+    /// - Parameters:
+    ///   - row: Row of the index path.
+    ///   - section: Section of the index path.
+    /// - Returns: Returns the previous index path.
+    public func previousIndexPath(row: Int, forSection section: Int) -> IndexPath? {
+        let indexPath: [IndexPath] = self.indexPaths(section: section)
+        guard indexPath != [] else {
+            return nil
+        }
+        
+        return indexPath[row - 1]
+    }
 }
 
 
-extension UITableView {
-    func reloadData(_ completion: @escaping ()->()) {
+public extension UITableView {
+    public func reloadData(_ completion: @escaping ()->()) {
         UIView.animate(withDuration: 0, animations: {
             self.reloadData()
         }, completion:{ _ in
@@ -103,7 +133,7 @@ extension UITableView {
     }
     
     
-    func insertRowsAtBottom(_ rows: [IndexPath]) {
+    public func insertRowsAtBottom(_ rows: [IndexPath]) {
         //保证 insert row 不闪屏
         UIView.setAnimationsEnabled(false)
         CATransaction.begin()
@@ -116,7 +146,7 @@ extension UITableView {
         UIView.setAnimationsEnabled(true)
     }
     
-    func totalRows() -> Int {
+    public func totalRows() -> Int {
         var i = 0
         var rowCount = 0
         while i < self.numberOfSections {
@@ -126,7 +156,7 @@ extension UITableView {
         return rowCount
     }
     
-    var lastIndexPath: IndexPath? {
+    public var lastIndexPath: IndexPath? {
         if (self.totalRows()-1) > 0{
             return IndexPath(row: self.totalRows()-1, section: 0)
         } else {
@@ -135,7 +165,7 @@ extension UITableView {
     }
     
     //插入数据后调用
-    func scrollBottomWithoutFlashing() {
+    public func scrollBottomWithoutFlashing() {
         guard let indexPath = self.lastIndexPath else {
             return
         }
@@ -148,7 +178,7 @@ extension UITableView {
     }
     
     //键盘动画结束后调用
-    func scrollBottomToLastRow() {
+    public func scrollBottomToLastRow() {
         guard let indexPath = self.lastIndexPath else {
             return
         }
@@ -160,11 +190,11 @@ extension UITableView {
     //        self.setContentOffset(bottomOffset, animated: animated)
     //    }
     
-    var isContentInsetBottomZero: Bool {
+    public var isContentInsetBottomZero: Bool {
         get { return self.contentInset.bottom == 0 }
     }
     
-    func resetContentInsetAndScrollIndicatorInsets() {
+    public func resetContentInsetAndScrollIndicatorInsets() {
         self.contentInset = UIEdgeInsets.zero
         self.scrollIndicatorInsets = UIEdgeInsets.zero
     }

@@ -1,6 +1,6 @@
 import UIKit
 
-extension UIView {
+public extension UIView {
     
     public convenience init(backgroundColor: UIColor) {
         self.init()
@@ -16,7 +16,7 @@ extension UIView {
     }
     
     /// 给View加上圆角
-    @IBInspectable var setCornerRadius: CGFloat {
+    @IBInspectable public var setCornerRadius: CGFloat {
         get {
             return self.layer.cornerRadius
         }
@@ -31,7 +31,7 @@ extension UIView {
     ///
     /// - Parameter superViewClass: 类
     /// - Returns: View
-    func findSuperView<T>(cls superViewClass : T.Type) -> T? {
+    public func findSuperView<T>(cls superViewClass : T.Type) -> T? {
         
         var xsuperView: UIView! = self.superview!
         var foundSuperView: UIView!
@@ -140,7 +140,7 @@ extension UIView {
     ///   - count: Shakes count. Default is 2.
     ///   - duration: Shake duration. Default is 0.15.
     ///   - translation: Shake translation. Default is 5.
-    func shake(count: Float = 2, duration: TimeInterval = 0.15, translation: Float = 5) {
+    public func shake(count: Float = 2, duration: TimeInterval = 0.15, translation: Float = 5) {
         let animation: CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         animation.repeatCount = count
@@ -221,7 +221,7 @@ extension UIView {
     ///
     /// - Parameter bundle: The bundle where the nib is located, by default we'll use the main bundle.
     /// - Returns: Returns an instance of the nib as a UIView.
-    class func instanceFromNib<T: UIView>(bundle: Bundle = .main) -> T {
+    public class func instanceFromNib<T: UIView>(bundle: Bundle = .main) -> T {
         return UINib(nibName: String(describing: T.self), bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as! T
     }
 }

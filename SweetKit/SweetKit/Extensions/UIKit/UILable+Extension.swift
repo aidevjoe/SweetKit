@@ -1,6 +1,6 @@
 import UIKit
 
-extension UILabel {
+public extension UILabel {
     
     /// Create an UILabel with the given parameters.
     public convenience init(frame: CGRect = .zero,
@@ -16,7 +16,7 @@ extension UILabel {
     }
     
     @IBInspectable
-    var underline: Bool {
+    public var underline: Bool {
         get {
             return self.underline
         }
@@ -35,12 +35,12 @@ extension UILabel {
     }
     
     /// 设置指定文字[]大小
-    func makeSubstringsBold(text: [String], size: CGFloat) {
+    public func makeSubstringsBold(text: [String], size: CGFloat) {
         text.forEach { self.makeSubstringBold($0, size: size) }
     }
     
     /// 设置指定文字大小
-    func makeSubstringBold(_ boldText: String, size: CGFloat) {
+    public func makeSubstringBold(_ boldText: String, size: CGFloat) {
         let attributedText = self.attributedText!.mutableCopy() as! NSMutableAttributedString
         
         let range = ((self.text ?? "") as NSString).range(of: boldText)
@@ -51,7 +51,7 @@ extension UILabel {
         self.attributedText = attributedText
     }
     
-    func makeSubstringWeight(_ text: String) {
+    public func makeSubstringWeight(_ text: String) {
         let attributedText = self.attributedText!.mutableCopy() as! NSMutableAttributedString
         let range = ((self.text ?? "") as NSString).range(of: text)
         if range.location != NSNotFound {
@@ -61,7 +61,7 @@ extension UILabel {
     }
     
     /// 设置指定文字颜色
-    func makeSubstringColor(_ text: String, color: UIColor) {
+    public func makeSubstringColor(_ text: String, color: UIColor) {
         let attributedText = self.attributedText!.mutableCopy() as! NSMutableAttributedString
         
         let range = ((self.text ?? "") as NSString).range(of: text)
@@ -73,12 +73,12 @@ extension UILabel {
     }
     
     /// 使指定文字添加删除线
-    func strikethrough(text: String) {
+    public func strikethrough(text: String) {
         self.attributedText = NSAttributedString(string: text, attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
     }
     
     /// 设置行高
-    func setLineHeight(_ lineHeight: Int) {
+    public func setLineHeight(_ lineHeight: Int) {
         let displayText = text ?? ""
         let attributedString = self.attributedText!.mutableCopy() as! NSMutableAttributedString
         let paragraphStyle = NSMutableParagraphStyle()
@@ -89,7 +89,7 @@ extension UILabel {
         attributedText = attributedString
     }
     
-    func makeTransparent() {
+    public func makeTransparent() {
         isOpaque = false
         backgroundColor = .clear
     }
@@ -99,7 +99,7 @@ extension UILabel {
      
      - returns: CGSize
      */
-    func contentSize() -> CGSize {
+    public func contentSize() -> CGSize {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = self.lineBreakMode
         paragraphStyle.alignment = self.textAlignment
@@ -119,7 +119,7 @@ extension UILabel {
      - parameter string: text
      - parameter width:  your limit width
      */
-    func setFrameWithString(_ string: String, width: CGFloat) {
+    public func setFrameWithString(_ string: String, width: CGFloat) {
         self.numberOfLines = 0
         let attributes: [String : AnyObject] = [
             NSFontAttributeName: self.font,

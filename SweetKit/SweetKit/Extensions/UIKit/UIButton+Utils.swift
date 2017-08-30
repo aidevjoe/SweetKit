@@ -1,6 +1,6 @@
 import UIKit
 
-extension UIButton {
+public extension UIButton {
     
     public convenience init(title: String, titleColor: UIColor = .white) {
         self.init()
@@ -9,7 +9,27 @@ extension UIButton {
         setTitleColor(titleColor, for: .normal)
     }
     
-    var normalTitle: String {
+    public convenience init(frame: CGRect, title: String, backgroundImage: UIImage? = nil, highlightedBackgroundImage: UIImage? = nil) {
+        self.init(frame: frame)
+        self.frame = frame
+        self.setTitle(title, for: .normal)
+        self.setBackgroundImage(backgroundImage, for: .normal)
+        self.setBackgroundImage(highlightedBackgroundImage, for: .highlighted)
+    }
+    
+    public convenience init(frame: CGRect, image: UIImage, highlightedImage: UIImage? = nil) {
+        self.init(frame: frame)
+        self.frame = frame
+        self.setImage(image, for: .normal)
+        self.setImage(highlightedImage, for: .highlighted)
+    }
+    
+    public func setTitleColor(_ color: UIColor, highlightedColor: UIColor) {
+        self.setTitleColor(color, for: .normal)
+        self.setTitleColor(highlightedColor, for: .highlighted)
+    }
+    
+    public var normalTitle: String {
         get {
             return self.title(for: .normal) ?? ""
         }
@@ -18,7 +38,16 @@ extension UIButton {
         }
     }
     
-    var normalTitleColor: UIColor {
+    public var selectedTitle: String {
+        get {
+            return self.title(for: .selected) ?? ""
+        }
+        set {
+            self.setTitle(newValue, for: .selected)
+        }
+    }
+    
+    public var normalTitleColor: UIColor {
         get {
             return self.titleColor(for: .normal) ?? .white
         }
@@ -27,7 +56,16 @@ extension UIButton {
         }
     }
     
-    var normalImage: UIImage? {
+    public var selectedTitleColor: UIColor {
+        get {
+            return self.titleColor(for: .selected) ?? .white
+        }
+        set {
+            self.setTitleColor(newValue, for: .selected)
+        }
+    }
+    
+    public var normalImage: UIImage? {
         get {
             return self.image(for: .normal)
         }
@@ -36,7 +74,15 @@ extension UIButton {
         }
     }
     
-    var fontSize: CGFloat {
+    public var selectedImage: UIImage? {
+        get {
+            return self.image(for: .selected)
+        }
+        set {
+            self.setImage(newValue, for: .selected)
+        }
+    }
+    public var fontSize: CGFloat {
         get {
             return self.titleLabel?.font.pointSize ?? 17
         }
@@ -84,7 +130,7 @@ extension UIButton {
     /// 按钮图片在上文字在下 垂直对齐
     ///
     /// - Parameter spacing: 图片和文字之间的间距
-    func alignVertical(spacing: CGFloat = 6.0) {
+    public func alignVertical(spacing: CGFloat = 6.0) {
         guard let imageSize = imageView?.image?.size,
             let text = currentTitle,
             let font = titleLabel?.font

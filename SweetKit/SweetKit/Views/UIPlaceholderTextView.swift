@@ -13,6 +13,9 @@ class UIPlaceholderTextView: UITextView {
     /// The color of the placeholder. This property applies to the entire placeholder string. The default placeholder color is `UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1.0)`.
     @IBInspectable open var placeholderColor: UIColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1.0) { didSet { setNeedsDisplay() } }
     
+    /// Max number of characters allowed by TextField.
+    @IBInspectable public var maxNumberOfCharacters: Int = 0
+    
     // MARK: - Superclass Properties
     
     override open var attributedText: NSAttributedString! { didSet { setNeedsDisplay() } }
@@ -100,12 +103,16 @@ class UIPlaceholderTextView: UITextView {
     
     fileprivate func commonInitializer() {
         contentMode = .topLeft
+        maxNumberOfCharacters = 0
         NotificationCenter.default.addObserver(self, selector: #selector(UIPlaceholderTextView.handleTextViewTextDidChangeNotification(_:)), name: NSNotification.Name.UITextViewTextDidChange, object: self)
     }
     
     internal func handleTextViewTextDidChangeNotification(_ notification: Notification) {
         guard let object = notification.object as? UIPlaceholderTextView, object === self else {
             return
+        }
+        if self.maxNumberOfCharacters != 0, text.length >= self.maxNumberOfCharacters {
+            self.text = text.substring(to: self.maxNumberOfCharacters)
         }
         setNeedsDisplay()
     }

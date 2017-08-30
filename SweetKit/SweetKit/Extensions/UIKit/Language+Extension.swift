@@ -1,6 +1,6 @@
 import UIKit
 
-extension UINavigationItem {
+public extension UINavigationItem {
     @IBInspectable var language: String {
         set {
             title = newValue.localized()
@@ -11,7 +11,7 @@ extension UINavigationItem {
     }
 }
 
-extension UIBarButtonItem {
+public extension UIBarButtonItem {
     @IBInspectable var language: String {
         set {
             title = newValue.localized()
@@ -22,8 +22,8 @@ extension UIBarButtonItem {
     }
 }
 
-extension UIView {
-    @IBInspectable var language: String {
+public extension UIView {
+    @IBInspectable public var language: String {
         set {
             if newValue != "" {
                 setLanguage(language: newValue) }
@@ -33,7 +33,7 @@ extension UIView {
         }
     }
     
-    func setLanguage(language: String) {
+    public func setLanguage(language: String) {
         if let label = self as? UILabel {
             label.text = language.localized()
         }
@@ -64,7 +64,7 @@ extension UIView {
         }
     }
     
-    @IBInspectable var placeholaerLanguage: String {
+    @IBInspectable public var placeholaerLanguage: String {
         set {
             if newValue != "" {
                 setPlaceholaerLanguage(language: newValue)
@@ -75,13 +75,13 @@ extension UIView {
         }
     }
     
-    func setPlaceholaerLanguage(language: String) {
+    public func setPlaceholaerLanguage(language: String) {
         if let textField = self as? UITextField {
             textField.placeholder = language.localized()
         }
     }
     
-    @IBInspectable var buttonDefaultLanguage: String {
+    @IBInspectable public var buttonDefaultLanguage: String {
         set {
             if newValue != "" {
                 setButtonDefaultLanguage(language: newValue)
@@ -92,13 +92,13 @@ extension UIView {
         }
     }
     
-    func setButtonDefaultLanguage(language: String) {
+    public func setButtonDefaultLanguage(language: String) {
         if let button = self as? UIButton {
             button.setTitle(language.localized(), for: UIControlState.normal)
         }
     }
     
-    @IBInspectable var buttonHighlightedLanguage: String {
+    @IBInspectable public var buttonHighlightedLanguage: String {
         set {
             if newValue != "" {
                 setButtonHighlightedLanguage(language: newValue)
@@ -109,13 +109,13 @@ extension UIView {
         }
     }
     
-    func setButtonHighlightedLanguage(language: String) {
+    public func setButtonHighlightedLanguage(language: String) {
         if let button = self as? UIButton {
             button.setTitle(language.localized(), for: UIControlState.highlighted)
         }
     }
     
-    @IBInspectable var buttonSelectedLanguage: String {
+    @IBInspectable public var buttonSelectedLanguage: String {
         set {
             if newValue != "" {
                 setButtonSelectedLanguage(language: newValue)
@@ -126,7 +126,7 @@ extension UIView {
         }
     }
     
-    func setButtonSelectedLanguage(language: String) {
+    public func setButtonSelectedLanguage(language: String) {
         if let button = self as? UIButton {
             button.setTitle(language.localized(), for: UIControlState.selected)
         }

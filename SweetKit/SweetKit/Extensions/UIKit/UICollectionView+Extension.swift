@@ -1,8 +1,8 @@
 import UIKit
 
-extension UICollectionView {
+public extension UICollectionView {
     
-    func sectionWidth(at section: Int) -> CGFloat {
+    public func sectionWidth(at section: Int) -> CGFloat {
         var width = bounds.width
         width -= contentInset.left
         width -= contentInset.right

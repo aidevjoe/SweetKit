@@ -7,17 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF303F5F1F564E72008E6A89 /* SKSystemSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF303F5E1F564E72008E6A89 /* SKSystemSound.swift */; };
+		BF303F611F5658ED008E6A89 /* SweetFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF303F601F5658ED008E6A89 /* SweetFunc.swift */; };
+		BF303F641F565D9C008E6A89 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF303F621F565D9C008E6A89 /* String+Extension.swift */; };
+		BF303F651F565D9C008E6A89 /* String+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF303F631F565D9C008E6A89 /* String+Validate.swift */; };
+		BF303F671F566335008E6A89 /* SKLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF303F661F566335008E6A89 /* SKLog.swift */; };
+		BF303F691F5667DB008E6A89 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF303F681F5667DB008E6A89 /* UIDevice+Extension.swift */; };
+		BF303F6B1F566B42008E6A89 /* SKTouchID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF303F6A1F566B42008E6A89 /* SKTouchID.swift */; };
+		BFC7BEE21F56749F0087463A /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC7BEE11F56749F0087463A /* Dictionary+Extension.swift */; };
 		BFF95FCE1F53DCF6005BC83D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FCD1F53DCF6005BC83D /* AppDelegate.swift */; };
 		BFF95FD01F53DCF6005BC83D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FCF1F53DCF6005BC83D /* ViewController.swift */; };
 		BFF95FD31F53DCF6005BC83D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFF95FD11F53DCF6005BC83D /* Main.storyboard */; };
 		BFF95FD51F53DCF6005BC83D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFF95FD41F53DCF6005BC83D /* Assets.xcassets */; };
 		BFF95FD81F53DCF6005BC83D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFF95FD61F53DCF6005BC83D /* LaunchScreen.storyboard */; };
 		BFF95FFE1F53DD18005BC83D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FE21F53DD18005BC83D /* Date+Extension.swift */; };
-		BFF95FFF1F53DD18005BC83D /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FE31F53DD18005BC83D /* Dictionary+Extension.swift */; };
+		BFF95FFF1F53DD18005BC83D /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FE31F53DD18005BC83D /* Collection+Extension.swift */; };
 		BFF960001F53DD18005BC83D /* Foundation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FE41F53DD18005BC83D /* Foundation+Extension.swift */; };
 		BFF960011F53DD18005BC83D /* Language+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FE61F53DD18005BC83D /* Language+Extension.swift */; };
-		BFF960021F53DD18005BC83D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FE71F53DD18005BC83D /* String+Extension.swift */; };
-		BFF960031F53DD18005BC83D /* String+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FE81F53DD18005BC83D /* String+Validate.swift */; };
 		BFF960041F53DD18005BC83D /* UIButton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FE91F53DD18005BC83D /* UIButton+Utils.swift */; };
 		BFF960051F53DD18005BC83D /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FEA1F53DD18005BC83D /* UICollectionView+Extension.swift */; };
 		BFF960061F53DD18005BC83D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF95FEB1F53DD18005BC83D /* UIColor+Extension.swift */; };
@@ -40,6 +46,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF303F5E1F564E72008E6A89 /* SKSystemSound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKSystemSound.swift; sourceTree = "<group>"; };
+		BF303F601F5658ED008E6A89 /* SweetFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetFunc.swift; sourceTree = "<group>"; };
+		BF303F621F565D9C008E6A89 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		BF303F631F565D9C008E6A89 /* String+Validate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Validate.swift"; sourceTree = "<group>"; };
+		BF303F661F566335008E6A89 /* SKLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKLog.swift; sourceTree = "<group>"; };
+		BF303F681F5667DB008E6A89 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		BF303F6A1F566B42008E6A89 /* SKTouchID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTouchID.swift; sourceTree = "<group>"; };
+		BFC7BEE11F56749F0087463A /* Dictionary+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		BFF95FCA1F53DCF6005BC83D /* SweetKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SweetKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFF95FCD1F53DCF6005BC83D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFF95FCF1F53DCF6005BC83D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,11 +62,9 @@
 		BFF95FD71F53DCF6005BC83D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BFF95FD91F53DCF6005BC83D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BFF95FE21F53DD18005BC83D /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		BFF95FE31F53DD18005BC83D /* Dictionary+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
+		BFF95FE31F53DD18005BC83D /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		BFF95FE41F53DD18005BC83D /* Foundation+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Foundation+Extension.swift"; sourceTree = "<group>"; };
 		BFF95FE61F53DD18005BC83D /* Language+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Language+Extension.swift"; sourceTree = "<group>"; };
-		BFF95FE71F53DD18005BC83D /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		BFF95FE81F53DD18005BC83D /* String+Validate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Validate.swift"; sourceTree = "<group>"; };
 		BFF95FE91F53DD18005BC83D /* UIButton+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Utils.swift"; sourceTree = "<group>"; };
 		BFF95FEA1F53DD18005BC83D /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		BFF95FEB1F53DD18005BC83D /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -138,8 +150,11 @@
 			isa = PBXGroup;
 			children = (
 				BFF95FE21F53DD18005BC83D /* Date+Extension.swift */,
-				BFF95FE31F53DD18005BC83D /* Dictionary+Extension.swift */,
+				BFF95FE31F53DD18005BC83D /* Collection+Extension.swift */,
 				BFF95FE41F53DD18005BC83D /* Foundation+Extension.swift */,
+				BF303F621F565D9C008E6A89 /* String+Extension.swift */,
+				BF303F631F565D9C008E6A89 /* String+Validate.swift */,
+				BFC7BEE11F56749F0087463A /* Dictionary+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -148,8 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				BFF95FE61F53DD18005BC83D /* Language+Extension.swift */,
-				BFF95FE71F53DD18005BC83D /* String+Extension.swift */,
-				BFF95FE81F53DD18005BC83D /* String+Validate.swift */,
 				BFF95FE91F53DD18005BC83D /* UIButton+Utils.swift */,
 				BFF95FEA1F53DD18005BC83D /* UICollectionView+Extension.swift */,
 				BFF95FEB1F53DD18005BC83D /* UIColor+Extension.swift */,
@@ -164,6 +177,7 @@
 				BFF95FF41F53DD18005BC83D /* UIView+Extension.swift */,
 				BFF95FF51F53DD18005BC83D /* UIView+Positioning.swift */,
 				BFF95FF61F53DD18005BC83D /* UIViewController+Extension.swift */,
+				BF303F681F5667DB008E6A89 /* UIDevice+Extension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -171,9 +185,13 @@
 		BFF95FF71F53DD18005BC83D /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				BF303F6A1F566B42008E6A89 /* SKTouchID.swift */,
+				BF303F5E1F564E72008E6A89 /* SKSystemSound.swift */,
 				BFF95FF81F53DD18005BC83D /* GCDHelper.swift */,
 				BFF95FF91F53DD18005BC83D /* LocalNotificationHelper.swift */,
 				BFF95FFA1F53DD18005BC83D /* SwiftTimer.swift */,
+				BF303F601F5658ED008E6A89 /* SweetFunc.swift */,
+				BF303F661F566335008E6A89 /* SKLog.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -219,7 +237,7 @@
 				TargetAttributes = {
 					BFF95FC91F53DCF6005BC83D = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = D7C53G746E;
+						DevelopmentTeam = KHQ2YPM72K;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -262,8 +280,10 @@
 			files = (
 				BFF960001F53DD18005BC83D /* Foundation+Extension.swift in Sources */,
 				BFF9600A1F53DD18005BC83D /* UINavigationController+Navigation.swift in Sources */,
-				BFF960021F53DD18005BC83D /* String+Extension.swift in Sources */,
+				BF303F6B1F566B42008E6A89 /* SKTouchID.swift in Sources */,
 				BFF960011F53DD18005BC83D /* Language+Extension.swift in Sources */,
+				BF303F691F5667DB008E6A89 /* UIDevice+Extension.swift in Sources */,
+				BFC7BEE21F56749F0087463A /* Dictionary+Extension.swift in Sources */,
 				BFF960071F53DD18005BC83D /* UIImage+Extension.swift in Sources */,
 				BFF960101F53DD18005BC83D /* UIView+Positioning.swift in Sources */,
 				BFF960061F53DD18005BC83D /* UIColor+Extension.swift in Sources */,
@@ -278,15 +298,19 @@
 				BFF960151F53DD18005BC83D /* UIInsetLabel.swift in Sources */,
 				BFF960041F53DD18005BC83D /* UIButton+Utils.swift in Sources */,
 				BFF960091F53DD18005BC83D /* UILable+Extension.swift in Sources */,
-				BFF960031F53DD18005BC83D /* String+Validate.swift in Sources */,
+				BF303F651F565D9C008E6A89 /* String+Validate.swift in Sources */,
 				BFF9600E1F53DD18005BC83D /* UIView+Border.swift in Sources */,
+				BF303F5F1F564E72008E6A89 /* SKSystemSound.swift in Sources */,
 				BFF960131F53DD18005BC83D /* LocalNotificationHelper.swift in Sources */,
 				BFF960051F53DD18005BC83D /* UICollectionView+Extension.swift in Sources */,
+				BF303F611F5658ED008E6A89 /* SweetFunc.swift in Sources */,
 				BFF95FCE1F53DCF6005BC83D /* AppDelegate.swift in Sources */,
 				BFF960141F53DD18005BC83D /* SwiftTimer.swift in Sources */,
 				BFF95FFE1F53DD18005BC83D /* Date+Extension.swift in Sources */,
+				BF303F671F566335008E6A89 /* SKLog.swift in Sources */,
 				BFF9600F1F53DD18005BC83D /* UIView+Extension.swift in Sources */,
-				BFF95FFF1F53DD18005BC83D /* Dictionary+Extension.swift in Sources */,
+				BF303F641F565D9C008E6A89 /* String+Extension.swift in Sources */,
+				BFF95FFF1F53DD18005BC83D /* Collection+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7C53G746E;
+				DEVELOPMENT_TEAM = KHQ2YPM72K;
 				INFOPLIST_FILE = SweetKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lovonse.SweetKit;
@@ -422,7 +446,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7C53G746E;
+				DEVELOPMENT_TEAM = KHQ2YPM72K;
 				INFOPLIST_FILE = SweetKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lovonse.SweetKit;

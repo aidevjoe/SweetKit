@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-extension UIScrollView {
+public extension UIScrollView {
     fileprivate struct AssociatedKeys {
         static var kKeyScrollViewVerticalIndicator = "_verticalScrollIndicator"
         static var kKeyScrollViewHorizontalIndicator = "_horizontalScrollIndicator"
@@ -94,19 +94,29 @@ extension UIScrollView {
 
 
 
-extension UIScrollView {
+public extension UIScrollView {
     
-    var isOverflowVertical: Bool {
+    public convenience init(frame: CGRect, contentSize: CGSize, clipsToBounds: Bool, pagingEnabled: Bool, showScrollIndicators: Bool, delegate: UIScrollViewDelegate?) {
+        self.init(frame: frame)
+        self.delegate = delegate
+        self.isPagingEnabled = pagingEnabled
+        self.clipsToBounds = clipsToBounds
+        self.showsVerticalScrollIndicator = showScrollIndicators
+        self.showsHorizontalScrollIndicator = showScrollIndicators
+        self.contentSize = contentSize
+    }
+    
+    public var isOverflowVertical: Bool {
         return self.contentSize.height > bounds.height && bounds.height > 0
     }
     
-    func isReachedBottom(withTolerance tolerance: CGFloat = 0) -> Bool {
+    public func isReachedBottom(withTolerance tolerance: CGFloat = 0) -> Bool {
         guard self.isOverflowVertical else { return false }
         let contentOffsetBottom = self.contentOffset.y + bounds.height
         return contentOffsetBottom >= self.contentSize.height - tolerance
     }
     
-    func scrollToBottom(animated: Bool) {
+    public func scrollToBottom(animated: Bool) {
         guard self.isOverflowVertical else { return }
         let targetY = self.contentSize.height + self.contentInset.bottom - bounds.height
         let targetOffset = CGPoint(x: 0, y: targetY)
